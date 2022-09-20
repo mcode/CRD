@@ -64,7 +64,7 @@ class DatabaseInit {
             Drug iPledge = new Drug();
             iPledge.setId("IPledge");
             iPledge.setCodeSystem("http://www.nlm.nih.gov/research/umls/rxnorm");
-            iPledge.setCode("197844");
+            iPledge.setCode("6064");
             repository.save(iPledge);
 
 
