@@ -9,10 +9,15 @@ import com.vladmihalcea.hibernate.type.json.internal.JacksonUtil;
 import org.hl7.davinci.endpoint.rems.database.requirement.MetRequirement;
 import org.hl7.davinci.endpoint.rems.database.requirement.MetRequirementRepository;
 import org.hl7.davinci.endpoint.rems.database.requirement.Requirement;
+import org.hl7.davinci.endpoint.rems.database.fhir.RemsFhir;
+
+import org.hl7.fhir.r4.model.ResourceType;
+
 
 import org.hl7.davinci.endpoint.Application;
 import org.hl7.davinci.endpoint.rems.database.drugs.Drug;
 import org.hl7.davinci.endpoint.rems.database.drugs.DrugsRepository;
+import org.hl7.davinci.endpoint.rems.database.fhir.RemsFhirRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import  org.hl7.davinci.endpoint.rems.database.rems.Rems;
 import  org.hl7.davinci.endpoint.rems.database.rems.RemsRepository;
@@ -57,6 +62,9 @@ public class RemsController {
 
     @Autowired
     private MetRequirementRepository metRequirementsRepository;
+
+    @Autowired
+    private RemsFhirRepository remsFhirRepository;
 
     @GetMapping(value = "/drug/{id}")
     @CrossOrigin
@@ -142,6 +150,15 @@ public class RemsController {
                 metReq.setFunctionalId(reqStakeholderReference);
                 metReq.setCompleted(true);
                 metReq.addRemsRequest(remsRequest);
+
+                RemsFhir submittedRequirement = new RemsFhir();
+                submittedRequirement.setResourceType(ResourceType.QuestionnaireResponse.toString());
+                submittedRequirement.setResource(questionnaireResponse);
+                String questionnaireResponseId = UUID.randomUUID().toString().replace("-", "");
+                submittedRequirement.setId(questionnaireResponseId);
+                remsFhirRepository.save(submittedRequirement);
+
+                metReq.setCompletedRequirement(submittedRequirement);
                 remsRequest.addMetRequirement(metReq);
                 metRequirementsRepository.save(metReq);
 
@@ -265,7 +282,15 @@ public class RemsController {
                     
                     foundMetReq3 = true;
                     possibleMetRequirement3.setCompleted(true);
-                    // possibleMetRequirement3.setCompletedRequirement(remsObject);
+                    
+                    RemsFhir submittedRequirement2 = new RemsFhir();
+                    submittedRequirement2.setResourceType(ResourceType.QuestionnaireResponse.toString());
+                    submittedRequirement2.setResource(questionnaireResponse);
+                    String questionnaireResponseId2 = UUID.randomUUID().toString().replace("-", "");
+                    submittedRequirement2.setId(questionnaireResponseId2);
+                    remsFhirRepository.save(submittedRequirement2);
+
+                    possibleMetRequirement3.setCompletedRequirement(submittedRequirement2);
                     metRequirementsRepository.save(possibleMetRequirement3);
                     returnMetReq = possibleMetRequirement3;
                   }
@@ -279,7 +304,15 @@ public class RemsController {
                   MetRequirement submittedMetReq = new MetRequirement();
                   submittedMetReq.setRequirement(requirement);
                   submittedMetReq.setCompleted(true);
-                  // submittedMetReq.setCompletedRequirement(remsObject);
+
+                  RemsFhir submittedRequirement3 = new RemsFhir();
+                  submittedRequirement3.setResourceType(ResourceType.QuestionnaireResponse.toString());
+                  submittedRequirement3.setResource(questionnaireResponse);
+                  String questionnaireResponseId3 = UUID.randomUUID().toString().replace("-", "");
+                  submittedRequirement3.setId(questionnaireResponseId3);
+                  remsFhirRepository.save(submittedRequirement3);
+
+                  submittedMetReq.setCompletedRequirement(submittedRequirement3);
                   submittedMetReq.setFunctionalId(reqStakeholderReference5);
                   metRequirementsRepository.save(submittedMetReq);
 
@@ -324,40 +357,52 @@ public class RemsController {
             // check sub requirements - note sub reqs can not initiate a new rems request, only a parent level requirement can start a new rems case
             // only handle one level of sub requirements
             for (Requirement subRequirement : requirement.getChildRequirements()) {
-              Boolean foundMetReq4 = false;
-              for (MetRequirement possibleMetRequirement4 : subRequirement.getMetRequirements()) {
-                if ((possibleMetRequirement4.getFunctionalId().equals(pharmacistReference) && requirement.getStakeholder().equals("pharmacist"))
-                || (possibleMetRequirement4.getFunctionalId().equals(practitionerReference) && requirement.getStakeholder().equals("prescriber"))
-                || (possibleMetRequirement4.getFunctionalId().equals(patientReference) && requirement.getStakeholder().equals("patient"))) {
-                  
-                  foundMetReq4 = true;
-                  possibleMetRequirement4.setCompleted(true);
-                  // possibleMetRequirement4.setCompletedRequirement(remsObject);
-                  metRequirementsRepository.save(possibleMetRequirement4);
-                  returnMetReq = possibleMetRequirement4;
+              if (subRequirement.getResource().getId().equals(requirementId)) {
+                Boolean foundMetReq4 = false;
+                for (MetRequirement possibleMetRequirement4 : subRequirement.getMetRequirements()) {
+                  if ((possibleMetRequirement4.getFunctionalId().equals(pharmacistReference) && requirement.getStakeholder().equals("pharmacist"))
+                  || (possibleMetRequirement4.getFunctionalId().equals(practitionerReference) && requirement.getStakeholder().equals("prescriber"))
+                  || (possibleMetRequirement4.getFunctionalId().equals(patientReference) && requirement.getStakeholder().equals("patient"))) {
+                    
+                    foundMetReq4 = true;
+                    possibleMetRequirement4.setCompleted(true);
+                    RemsFhir submittedRequirement4 = new RemsFhir();
+                    submittedRequirement4.setResourceType(ResourceType.QuestionnaireResponse.toString());
+                    submittedRequirement4.setResource(questionnaireResponse);
+                    String questionnaireResponseId4 = UUID.randomUUID().toString().replace("-", "");
+                    submittedRequirement4.setId(questionnaireResponseId4);
+                    remsFhirRepository.save(submittedRequirement4);
+
+                    possibleMetRequirement4.setCompletedRequirement(submittedRequirement4);
+                    metRequirementsRepository.save(possibleMetRequirement4);
+                    returnMetReq = possibleMetRequirement4;
+                  }
                 }
+  
+                if (!foundMetReq4) {
+                  // figure out which stakeholder the req corresponds to 
+                  String reqStakeholder6 = subRequirement.getStakeholder();
+                  String reqStakeholderReference6 = reqStakeholder6.equals("prescriber") ? practitionerReference : (reqStakeholder6.equals("pharmacist") ? pharmacistReference : patientReference);
+  
+                  MetRequirement submittedMetReq4 = new MetRequirement();
+                  submittedMetReq4.setRequirement(subRequirement);
+                  submittedMetReq4.setCompleted(true);
+
+                  RemsFhir submittedRequirement5 = new RemsFhir();
+                  submittedRequirement5.setResourceType(ResourceType.QuestionnaireResponse.toString());
+                  submittedRequirement5.setResource(questionnaireResponse);
+                  String questionnaireResponseId5 = UUID.randomUUID().toString().replace("-", "");
+                  submittedRequirement5.setId(questionnaireResponseId5);
+                  remsFhirRepository.save(submittedRequirement5);
+
+                  submittedMetReq4.setCompletedRequirement(submittedRequirement5);
+                  submittedMetReq4.setFunctionalId(reqStakeholderReference6);
+                  metRequirementsRepository.save(submittedMetReq4);
+                  returnMetReq = submittedMetReq4;
+                }
+
               }
 
-              if (!foundMetReq4) {
-                // figure out which stakeholder the req corresponds to 
-                String reqStakeholder6 = subRequirement.getStakeholder();
-                String reqStakeholderReference6 = reqStakeholder6.equals("prescriber") ? practitionerReference : (reqStakeholder6.equals("pharmacist") ? pharmacistReference : patientReference);
-
-                MetRequirement submittedMetReq4 = new MetRequirement();
-                submittedMetReq4.setRequirement(subRequirement);
-                submittedMetReq4.setCompleted(true);
-                // submittedMetReq4.setCompletedRequirement(remsObject);
-                submittedMetReq4.setFunctionalId(reqStakeholderReference6);
-                metRequirementsRepository.save(submittedMetReq4);
-                returnMetReq = submittedMetReq4;
-              }
-                // MetRequirement subMetReq = new MetRequirement();
-                // subMetReq.setRequirement(subRequirement);
-                // // subMetReq.setRemsRequest(remsRequest);
-                // subMetReq.setParentMetRequirement(metReq);
-                // // remsRequest.addMetRequirement(subMetReq);
-                // metReq.addChildMetRequirements(subMetReq);
-                // metRequirementsRepository.save(subMetReq);
             }
         }
 

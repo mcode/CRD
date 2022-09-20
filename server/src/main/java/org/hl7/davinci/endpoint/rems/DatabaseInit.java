@@ -263,7 +263,7 @@ class DatabaseInit {
             IPledgePrescriberEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
             JsonNode IPledgePrescriberQuestionnaireResource = JacksonUtil.toJsonNode(IPledgePrescriberQuestionnaire);
             IPledgePrescriberEnrollmentResource.setResource(IPledgePrescriberQuestionnaireResource);
-            IPledgePrescriberEnrollmentResource.setId("IPledgePrescriberEnrollmentForm");
+            IPledgePrescriberEnrollmentResource.setId("IPledgeRemsPrescriberEnrollmentForm");
             remsFhirRepository.save(IPledgePrescriberEnrollmentResource);
             IPledgePrescriberEnrollmentRequirement.setName("Prescriber Enrollment");
             IPledgePrescriberEnrollmentRequirement.setCreateNewCase(false);
