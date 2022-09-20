@@ -34,15 +34,14 @@ public class Rems {
   @Column(name = "status", nullable = false, length = 100)
   private String status;
 
-  // @ManyToOne
-  // @JoinColumn(name="drug", nullable = true)
-  // // @JsonBackReference
-  // @JsonIgnore
-  // private Drug drug;
-
   @Type(type = "json")
   @Column(columnDefinition = "json", name = "resource", nullable = false, length = 10000000)
   private JsonNode resource;
+
+  @ManyToOne
+  @JoinColumn(name="DRUG_ID", nullable = true)
+  @JsonIgnore
+  private Drug drug;
 
   @ManyToMany
   @JsonManagedReference
@@ -78,19 +77,19 @@ public void addMetRequirement(MetRequirement metRequirement)  {
     this.metRequirements.add(metRequirement);
 }
 
-// public Drug getDrug() {
-//   return this.drug;
-// }
-
-// public void setDrug(Drug drug) {
-//   this.drug = drug;
-// }
-
 public JsonNode getResource() {
   return this.resource;
 }
 
 public void setResource(JsonNode resource) {
   this.resource = resource;
+}
+
+public Drug getDrug() {
+  return this.drug;
+}
+
+public void setDrug(Drug drug) {
+  this.drug = drug;
 }
 }

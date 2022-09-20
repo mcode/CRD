@@ -31,8 +31,8 @@ public class Drug {
     private List<Requirement> requirements = new ArrayList<>();
 
     // ToDo: Revist this relationship mapping between drug and rems, currently broken
-    // @OneToMany(mappedBy="drug", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    // private List<Rems> rems = new ArrayList<>();
+    @OneToMany(mappedBy="drug", cascade = CascadeType.ALL)
+    private List<Rems> rems = new ArrayList<>();
 
     public Drug() {
         this.createdAt = ZonedDateTime.now().format(DateTimeFormatter.ofPattern( "uuuu.MM.dd.HH.mm.ss" ));
@@ -60,17 +60,17 @@ public class Drug {
     }
 
     // ToDo: Revist this relationship mapping between drug and rems, currently broken
-    // public List<Rems> getRems() {
-    //     return this.rems;
-    // }
+    public List<Rems> getRems() {
+        return this.rems;
+    }
 
-    // public void setRems(List<Rems> rems) {
-    //     this.rems = rems;
-    // }
+    public void setRems(List<Rems> rems) {
+        this.rems = rems;
+    }
 
-    // public void addRems(Rems rem)  {
-    //     this.rems.add(rem);
-    // }
+    public void addRems(Rems rem)  {
+        this.rems.add(rem);
+    }
 
     public String getCreatedAt() {
         return this.createdAt;

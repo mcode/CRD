@@ -47,23 +47,32 @@ class DatabaseInit {
 
         return args -> {
             log.info("Preloading turalio");
-            Drug turalio = new Drug(), tirf = new Drug();
+
+
+            Drug turalio = new Drug();
             turalio.setId("turalio");
             turalio.setCodeSystem("http://www.nlm.nih.gov/research/umls/rxnorm");
             turalio.setCode("2183126");
             repository.save(turalio);;
 
+            Drug tirf = new Drug();
             tirf.setId("TIRF");
             tirf.setCodeSystem("http://www.nlm.nih.gov/research/umls/rxnorm");
             tirf.setCode("1237051");
             repository.save(tirf);
+
+            Drug iPledge = new Drug();
+            iPledge.setId("IPledge");
+            iPledge.setCodeSystem("http://www.nlm.nih.gov/research/umls/rxnorm");
+            iPledge.setCode("6064");
+            repository.save(iPledge);
 
 
             /*-------------------------------------------------- TURALIO --------------------------------------------------*/
 
             
             // patient enrollment form requirement
-            String TuralioPatientQuestionnaire = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/Turalio/fhir/Questionnaire-R4-DrugHasREMS.json", Charset.defaultCharset());
+            String TuralioPatientQuestionnaire = readFile("CDS-Library/CRD-DTR/DrugHasREMS/R4/resources/Questionnaire-R4-DrugHasREMS.json", Charset.defaultCharset());
             Requirement TuralioPatientEnrollmentRequirement = new Requirement();
             RemsFhir TuralioPatientEnrollmentResource = new RemsFhir();
             TuralioPatientEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -80,7 +89,7 @@ class DatabaseInit {
             requirementRepository.save(TuralioPatientEnrollmentRequirement);
 
              // prescriber enrollment form requirement
-             String TuralioPrescriberQuestionnaire = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/Turalio/Questionnaire-R4-Prescriber-Enrollment.json", Charset.defaultCharset());
+             String TuralioPrescriberQuestionnaire = readFile("CDS-Library/CRD-DTR/DrugHasREMS/R4/resources/Questionnaire-R4-PrescriberEnrollment.json", Charset.defaultCharset());
              Requirement TuralioPrescriberEnrollmentRequirement = new Requirement();
              RemsFhir TuralioPrescriberEnrollmentResource = new RemsFhir();
              TuralioPrescriberEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -97,7 +106,7 @@ class DatabaseInit {
              requirementRepository.save(TuralioPrescriberEnrollmentRequirement);
 
             // prescriber knowledge assessment / certification sub-requirement
-            String TuralioPrescriberKnowledgeQuestionnaire = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/Turalio/Questionnaire-R4-Prescriber-Knowledge-Assessment.json", Charset.defaultCharset());
+            String TuralioPrescriberKnowledgeQuestionnaire = readFile("CDS-Library/CRD-DTR/DrugHasREMS/R4/resources/Questionnaire-R4-Prescriber-Knowledge-Assessment.json", Charset.defaultCharset());
             Requirement TuralioPrescriberCertificationRequirement = new Requirement();
             RemsFhir TuralioPrescriberKnowledgeResource = new RemsFhir();
             TuralioPrescriberKnowledgeResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -116,7 +125,7 @@ class DatabaseInit {
 
              // pharmacist enrollment form requirement
              // change form below to pharmacist enrollment once form is translated
-             String TuralioPharmacistQuestionnaire = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/Turalio/Questionnaire-R4-Prescriber-Enrollment.json", Charset.defaultCharset());
+             String TuralioPharmacistQuestionnaire = readFile("CDS-Library/CRD-DTR/DrugHasREMS/R4/resources/Questionnaire-R4-PrescriberEnrollment.json", Charset.defaultCharset());
              Requirement TuralioPharmacistEnrollmentRequirement = new Requirement();
              RemsFhir TuralioPharmacistEnrollmentResource = new RemsFhir();
              TuralioPharmacistEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -137,7 +146,7 @@ class DatabaseInit {
 
 
             // patient enrollment form requirement
-            String TIRFPatientQuestionnaire = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/TIRF/Questionnaire-R4-PrescriberEnrollment-TIRF.json", Charset.defaultCharset());
+            String TIRFPatientQuestionnaire = readFile("CDS-Library/CRD-DTR/TIRF/R4/resources/Questionnaire-R4-TIRF.json", Charset.defaultCharset());
             Requirement TIRFPatientEnrollmentRequirement = new Requirement();
             RemsFhir TIRFPatientEnrollmentResource = new RemsFhir();
             TIRFPatientEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -154,7 +163,7 @@ class DatabaseInit {
             requirementRepository.save(TIRFPatientEnrollmentRequirement);
 
             // prescriber enrollment form requirement
-            String TIRFPrescriberQuestionnaire = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/TIRF/Questionnaire-R4-PrescriberEnrollment-TIRF.json", Charset.defaultCharset());
+            String TIRFPrescriberQuestionnaire = readFile("CDS-Library/CRD-DTR/TIRF/R4/resources/Questionnaire-R4-PrescriberEnrollment-TIRF.json", Charset.defaultCharset());
             Requirement TIRFPrescriberEnrollmentRequirement = new Requirement();
             RemsFhir TIRFPrescriberEnrollmentResource = new RemsFhir();
             TIRFPrescriberEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -171,7 +180,7 @@ class DatabaseInit {
             requirementRepository.save(TIRFPrescriberEnrollmentRequirement);
 
             // prescriber knowledge assessment / certification sub-requirement
-            String TIRFPrescriberKnowledgeQuestionnaire = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/TIRF/Questionnaire-R4-Prescriber-Knowledge-Assessment-TIRF.json", Charset.defaultCharset());
+            String TIRFPrescriberKnowledgeQuestionnaire = readFile("CDS-Library/CRD-DTR/TIRF/R4/resources/Questionnaire-R4-Prescriber-Knowledge-Assessment-TIRF.json", Charset.defaultCharset());
             Requirement TIRFPrescriberCertificationRequirement = new Requirement();
             RemsFhir TIRFPrescriberKnowledgeResource = new RemsFhir();
             TIRFPrescriberKnowledgeResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -190,7 +199,7 @@ class DatabaseInit {
 
             // pharmacist enrollment form requirement
             // change form below to pharmacist enrollment once form is translated
-            String TIRFPharmacistQuestionnaire = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/TIRF/Questionnaire-R4-PrescriberEnrollment-TIRF.json", Charset.defaultCharset());
+            String TIRFPharmacistQuestionnaire = readFile("CDS-Library/CRD-DTR/TIRF/R4/resources/Questionnaire-R4-PrescriberEnrollment-TIRF.json", Charset.defaultCharset());
             Requirement TIRFPharmacistEnrollmentRequirement = new Requirement();
             RemsFhir TIRFPharmacistEnrollmentResource = new RemsFhir();
             TIRFPharmacistEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -208,7 +217,7 @@ class DatabaseInit {
 
             // pharmacist knowledge assessment / certification sub-requirement
             // change form below to pharmacist enrollment once form is translated
-            String TIRFPharmacistKnowledgeQuestionnaire = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/TIRF/Questionnaire-R4-PrescriberEnrollment-TIRF.json", Charset.defaultCharset());
+            String TIRFPharmacistKnowledgeQuestionnaire = readFile("CDS-Library/CRD-DTR/TIRF/R4/resources/Questionnaire-R4-Prescriber-Knowledge-Assessment-TIRF.json", Charset.defaultCharset());
             Requirement TIRFPharmacistCertificationRequirement = new Requirement();
             RemsFhir TIRFPharmacistKnowledgeResource = new RemsFhir();
             TIRFPharmacistKnowledgeResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -227,6 +236,64 @@ class DatabaseInit {
 
 
 
+            /*-------------------------------------------------- IPledge --------------------------------------------------*/
+
+
+            // patient enrollment form requirement
+            String IPledgePatientQuestionnaire = readFile("CDS-Library/CRD-DTR/IPledge/R4/resources/Questionnaire-R4-IPledge.json", Charset.defaultCharset());
+            Requirement IPledgePatientEnrollmentRequirement = new Requirement();
+            RemsFhir IPledgePatientEnrollmentResource = new RemsFhir();
+            IPledgePatientEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
+            JsonNode IPledgePatientQuestionnaireResource = JacksonUtil.toJsonNode(IPledgePatientQuestionnaire);
+            IPledgePatientEnrollmentResource.setResource(IPledgePatientQuestionnaireResource);
+            IPledgePatientEnrollmentResource.setId("IPledgeRemsPatientEnrollment");
+            remsFhirRepository.save(IPledgePatientEnrollmentResource);
+            IPledgePatientEnrollmentRequirement.setName("Patient Enrollment");
+            IPledgePatientEnrollmentRequirement.setCreateNewCase(true);
+            IPledgePatientEnrollmentRequirement.setResource(IPledgePatientEnrollmentResource);
+            IPledgePatientEnrollmentRequirement.setDescription("Submit Patient Enrollment form to the REMS Administrator");
+            IPledgePatientEnrollmentRequirement.setDrug(iPledge);
+            IPledgePatientEnrollmentRequirement.setStakeholder("patient");
+            requirementRepository.save(IPledgePatientEnrollmentRequirement);
+
+            // prescriber enrollment form requirement
+            String IPledgePrescriberQuestionnaire = readFile("CDS-Library/CRD-DTR/IPledge/R4/resources/Questionnaire-R4-PrescriberEnrollment-IPledge.json", Charset.defaultCharset());
+            Requirement IPledgePrescriberEnrollmentRequirement = new Requirement();
+            RemsFhir IPledgePrescriberEnrollmentResource = new RemsFhir();
+            IPledgePrescriberEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
+            JsonNode IPledgePrescriberQuestionnaireResource = JacksonUtil.toJsonNode(IPledgePrescriberQuestionnaire);
+            IPledgePrescriberEnrollmentResource.setResource(IPledgePrescriberQuestionnaireResource);
+            IPledgePrescriberEnrollmentResource.setId("IPledgeRemsPrescriberEnrollmentForm");
+            remsFhirRepository.save(IPledgePrescriberEnrollmentResource);
+            IPledgePrescriberEnrollmentRequirement.setName("Prescriber Enrollment");
+            IPledgePrescriberEnrollmentRequirement.setCreateNewCase(false);
+            IPledgePrescriberEnrollmentRequirement.setResource(IPledgePrescriberEnrollmentResource);
+            IPledgePrescriberEnrollmentRequirement.setDescription("Submit Prescriber Enrollment form to the REMS Administrator");
+            IPledgePrescriberEnrollmentRequirement.setDrug(iPledge);
+            IPledgePrescriberEnrollmentRequirement.setStakeholder("prescriber");
+            requirementRepository.save(IPledgePrescriberEnrollmentRequirement);
+
+
+            // pharmacist enrollment form requirement
+            // change form below to pharmacist enrollment once form is translated
+            String IPledgePharmacistQuestionnaire = readFile("CDS-Library/CRD-DTR/IPledge/R4/resources/Questionnaire-R4-PrescriberEnrollment-IPledge.json", Charset.defaultCharset());
+            Requirement IPledgePharmacistEnrollmentRequirement = new Requirement();
+            RemsFhir IPledgePharmacistEnrollmentResource = new RemsFhir();
+            IPledgePharmacistEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
+            JsonNode IPledgePharmacistQuestionnaireResource = JacksonUtil.toJsonNode(IPledgePharmacistQuestionnaire);
+            IPledgePharmacistEnrollmentResource.setResource(IPledgePharmacistQuestionnaireResource);
+            IPledgePharmacistEnrollmentResource.setId("IPledgePharmacistEnrollmentForm");
+            remsFhirRepository.save(IPledgePharmacistEnrollmentResource);
+            IPledgePharmacistEnrollmentRequirement.setName("Pharmacist Enrollment");
+            IPledgePharmacistEnrollmentRequirement.setCreateNewCase(false);
+            IPledgePharmacistEnrollmentRequirement.setResource(IPledgePharmacistEnrollmentResource);
+            IPledgePharmacistEnrollmentRequirement.setDescription("Submit Pharmacist Enrollment form to the REMS Administrator");
+            IPledgePharmacistEnrollmentRequirement.setDrug(iPledge);
+            IPledgePharmacistEnrollmentRequirement.setStakeholder("pharmacist");
+            requirementRepository.save(IPledgePharmacistEnrollmentRequirement);
+
+
+
             /*########################################################## MET REQUIREMENTS ##########################################################*/
 
 
@@ -238,7 +305,7 @@ class DatabaseInit {
             String TuralioPharmacistOrganization = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/Pharmacist-Organization.json", Charset.defaultCharset());
             MetRequirement TuralioPharmacistEnrollmentMetRequirement = new MetRequirement();
             RemsFhir TuralioPharmacistCredentialsResource = new RemsFhir();
-            TuralioPharmacistCredentialsResource.setResourceType(ResourceType.Questionnaire.toString());
+            TuralioPharmacistCredentialsResource.setResourceType(ResourceType.Organization.toString());
             JsonNode TuralioPharmacistOrganizationResource = JacksonUtil.toJsonNode(TuralioPharmacistOrganization);
             TuralioPharmacistCredentialsResource.setResource(TuralioPharmacistOrganizationResource);
             TuralioPharmacistCredentialsResource.setId("Turalio-pharmacist-organization");
@@ -258,7 +325,7 @@ class DatabaseInit {
             String TIRFPharmacistOrganization = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/Pharmacist-Organization.json", Charset.defaultCharset());
             MetRequirement TIRFPharmacistEnrollmentMetRequirement = new MetRequirement();
             RemsFhir TIRFPharmacistCredentialsResource = new RemsFhir();
-            TIRFPharmacistCredentialsResource.setResourceType(ResourceType.Questionnaire.toString());
+            TIRFPharmacistCredentialsResource.setResourceType(ResourceType.Organization.toString());
             JsonNode TIRFPharmacistOrganizationResource = JacksonUtil.toJsonNode(TIRFPharmacistOrganization);
             TIRFPharmacistCredentialsResource.setResource(TIRFPharmacistOrganizationResource);
             TIRFPharmacistCredentialsResource.setId("TIRF-pharmacist-organization");
@@ -276,7 +343,28 @@ class DatabaseInit {
             TIRFPharmacistCertificationMetRequirement.setFunctionalId(TIRFFunctionalId);
             TIRFPharmacistCertificationMetRequirement.setRequirement(TIRFPharmacistCertificationRequirement);
             TIRFPharmacistCertificationMetRequirement.setParentMetRequirement(TIRFPharmacistEnrollmentMetRequirement);
+            TIRFPharmacistCertificationMetRequirement.setCompletedRequirement(TIRFPharmacistCredentialsResource);
             metRequirementRepository.save(TIRFPharmacistCertificationMetRequirement);
+
+
+            /*-------------------------------------------------- IPledge --------------------------------------------------*/
+
+
+            // pharmacist enrollment form requirement
+            String IPledgePharmacistOrganization = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/Pharmacist-Organization.json", Charset.defaultCharset());
+            MetRequirement IPledgePharmacistEnrollmentMetRequirement = new MetRequirement();
+            RemsFhir IPledgePharmacistCredentialsResource = new RemsFhir();
+            IPledgePharmacistCredentialsResource.setResourceType(ResourceType.Organization.toString());
+            JsonNode IPledgePharmacistOrganizationResource = JacksonUtil.toJsonNode(IPledgePharmacistOrganization);
+            IPledgePharmacistCredentialsResource.setResource(IPledgePharmacistOrganizationResource);
+            IPledgePharmacistCredentialsResource.setId("IPledge-pharmacist-organization");
+            remsFhirRepository.save(IPledgePharmacistCredentialsResource);
+            IPledgePharmacistEnrollmentMetRequirement.setCompleted(true);
+            String iPledgeFunctionalId = IPledgePharmacistOrganizationResource.get("resourceType").textValue() + "/" + IPledgePharmacistOrganizationResource.get("id").textValue();
+            IPledgePharmacistEnrollmentMetRequirement.setFunctionalId(iPledgeFunctionalId);
+            IPledgePharmacistEnrollmentMetRequirement.setRequirement(IPledgePharmacistEnrollmentRequirement);
+            IPledgePharmacistEnrollmentMetRequirement.setCompletedRequirement(IPledgePharmacistCredentialsResource);
+            metRequirementRepository.save(IPledgePharmacistEnrollmentMetRequirement);
 
         };
     }
