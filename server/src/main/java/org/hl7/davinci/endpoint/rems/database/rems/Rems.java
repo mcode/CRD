@@ -34,6 +34,10 @@ public class Rems {
   @Column(name = "status", nullable = false, length = 100)
   private String status;
 
+  @Type(type = "json")
+  @Column(columnDefinition = "json", name = "resource", nullable = false, length = 10000000)
+  private JsonNode resource;
+
   @ManyToOne
   @JoinColumn(name="DRUG_ID", nullable = true)
   @JsonIgnore
@@ -71,6 +75,14 @@ public void setMetRequirement(List<MetRequirement> metRequirements) {
 
 public void addMetRequirement(MetRequirement metRequirement)  {
     this.metRequirements.add(metRequirement);
+}
+
+public JsonNode getResource() {
+  return this.resource;
+}
+
+public void setResource(JsonNode resource) {
+  this.resource = resource;
 }
 
 public Drug getDrug() {

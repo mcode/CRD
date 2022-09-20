@@ -137,6 +137,7 @@ public class RemsController {
                 // create new rems request and add the created metReq to it
                 remsRequest.setCase_number(id);
                 remsRequest.setStatus("Pending");
+                remsRequest.setResource(remsObject);
                 remsRequest.setDrug(drug);
                 remsRepository.save(remsRequest);
 
