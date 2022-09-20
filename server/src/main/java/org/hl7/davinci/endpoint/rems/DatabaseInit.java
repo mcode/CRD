@@ -305,7 +305,7 @@ class DatabaseInit {
             String TuralioPharmacistOrganization = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/Pharmacist-Organization.json", Charset.defaultCharset());
             MetRequirement TuralioPharmacistEnrollmentMetRequirement = new MetRequirement();
             RemsFhir TuralioPharmacistCredentialsResource = new RemsFhir();
-            TuralioPharmacistCredentialsResource.setResourceType(ResourceType.Questionnaire.toString());
+            TuralioPharmacistCredentialsResource.setResourceType(ResourceType.Organization.toString());
             JsonNode TuralioPharmacistOrganizationResource = JacksonUtil.toJsonNode(TuralioPharmacistOrganization);
             TuralioPharmacistCredentialsResource.setResource(TuralioPharmacistOrganizationResource);
             TuralioPharmacistCredentialsResource.setId("Turalio-pharmacist-organization");
@@ -325,7 +325,7 @@ class DatabaseInit {
             String TIRFPharmacistOrganization = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/Pharmacist-Organization.json", Charset.defaultCharset());
             MetRequirement TIRFPharmacistEnrollmentMetRequirement = new MetRequirement();
             RemsFhir TIRFPharmacistCredentialsResource = new RemsFhir();
-            TIRFPharmacistCredentialsResource.setResourceType(ResourceType.Questionnaire.toString());
+            TIRFPharmacistCredentialsResource.setResourceType(ResourceType.Organization.toString());
             JsonNode TIRFPharmacistOrganizationResource = JacksonUtil.toJsonNode(TIRFPharmacistOrganization);
             TIRFPharmacistCredentialsResource.setResource(TIRFPharmacistOrganizationResource);
             TIRFPharmacistCredentialsResource.setId("TIRF-pharmacist-organization");
@@ -343,6 +343,7 @@ class DatabaseInit {
             TIRFPharmacistCertificationMetRequirement.setFunctionalId(TIRFFunctionalId);
             TIRFPharmacistCertificationMetRequirement.setRequirement(TIRFPharmacistCertificationRequirement);
             TIRFPharmacistCertificationMetRequirement.setParentMetRequirement(TIRFPharmacistEnrollmentMetRequirement);
+            TIRFPharmacistCertificationMetRequirement.setCompletedRequirement(TIRFPharmacistCredentialsResource);
             metRequirementRepository.save(TIRFPharmacistCertificationMetRequirement);
 
 
@@ -353,7 +354,7 @@ class DatabaseInit {
             String IPledgePharmacistOrganization = readFile("src/main/java/org/hl7/davinci/endpoint/rems/resources/Pharmacist-Organization.json", Charset.defaultCharset());
             MetRequirement IPledgePharmacistEnrollmentMetRequirement = new MetRequirement();
             RemsFhir IPledgePharmacistCredentialsResource = new RemsFhir();
-            IPledgePharmacistCredentialsResource.setResourceType(ResourceType.Questionnaire.toString());
+            IPledgePharmacistCredentialsResource.setResourceType(ResourceType.Organization.toString());
             JsonNode IPledgePharmacistOrganizationResource = JacksonUtil.toJsonNode(IPledgePharmacistOrganization);
             IPledgePharmacistCredentialsResource.setResource(IPledgePharmacistOrganizationResource);
             IPledgePharmacistCredentialsResource.setId("IPledge-pharmacist-organization");
