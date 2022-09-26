@@ -10,7 +10,7 @@ spring:
   thymeleaf:
     cache: false
   datasource:
-    url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:./server/db
   jpa:
     hibernate:
       ddl-auto: validate
