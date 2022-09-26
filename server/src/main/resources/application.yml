@@ -10,7 +10,7 @@ spring:
   thymeleaf:
     cache: false
   datasource:
-    url: jdbc:h2:./server/db
+    url: jdbc:h2:./db/rems-admin
   jpa:
     hibernate:
       ddl-auto: validate
