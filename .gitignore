@@ -154,3 +154,6 @@ CDS-Library
 
 # ignore the value set cache
 server/ValueSetCache
+
+# ignore db folder
+server/db
