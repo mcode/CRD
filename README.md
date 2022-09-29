@@ -53,13 +53,13 @@ On the left side of the diagram, we have two components that simulate functional
 
 ## Building, testing and running
 1. Clone the repo
-  * `git clone https://github.com/HL7-DaVinci/CRD.git`
+	* `git clone https://github.com/HL7-DaVinci/CRD.git`
 2. Test the code (optional)
-  * `gradle clean check`
+	* `gradle clean check`
 3. Build the code
-  * `gradle build`
+	* `gradle build`
 4. Run the code
-  * `gradle :server:bootRun`
+	* `gradle :server:bootRun`
 
 Visit the [server README](server/README.md) to see how to run the server or the [crd-request-generator README](https://github.com/HL7-DaVinci/crd-request-generator/) for information on running these subprojects.
 
@@ -108,10 +108,5 @@ The core CRD team develops with [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 ### Running the server from the IntelliJ IDEA UI
 1. Select the gradle tool window
 1. Choose CRD --> :server --> Tasks --> application --> bootRun
-
-## Questions and Contributions
-Questions about the project can be asked in the [Da Vinci CRD stream on the FHIR Zulip Chat](https://chat.fhir.org/#narrow/stream/180803-Da-Vinci.20CRD).
-
-This project welcomes Pull Requests. Any issues identified with the RI should be submitted via the [GitHub issue tracker](https://github.com/HL7-DaVinci/CRD/issues).
 
  
