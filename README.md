@@ -8,7 +8,7 @@ This software lets EHR vendors and payer organizations examine how the proposed 
 
 ## Running CRD
 
-You can find a complete end-to-end set up guide for DRLS, including CRD, [here](SetupGuideForMacOS.md).
+You can find a complete end-to-end set up guide for REMS, including CRD, [here](https://github.com/mcode/REMS/blob/readme-updates/SimpleSetupGuide.md).
 
 ## Project Structure
 
@@ -16,7 +16,7 @@ Folders within this project make up subprojects. This section provides a brief d
 
 Subprojects:
 
-* [CRD RI Server](https://github.com/HL7-DaVinci/CRD/tree/master/server) - java application that implements the CDS service in CRD
+* [CRD RI Server](https://github.com/mcode/CRD/tree/master/server) - java application that implements the CDS service in CRD
 
 * examples - JSON examples of requests and responses
 * resources - java objects to represent the data structures involved in CRD requests and responses
@@ -24,9 +24,9 @@ Subprojects:
 
 Standalone or supporting apps for this project are contained in other repositories.  These include:
 
-* [crd-request-generator](https://github.com/HL7-DaVinci/crd-request-generator) - React/node.js based web UI that can generate basic CRD requests and display the returned CDS Hooks cards.
-* [test-ehr](https://github.com/HL7-DaVinci/test-ehr) - A HAPI FHIR server with additional support for the data needed to be forwarded to the dtr SMART on FHIR application.
-* [smart-app](https://github.com/HL7-DaVinci/dtr) - A SMART of FHIR application for Documentation Templates and Rules (DTR).
+* [crd-request-generator](https://github.com/mcode/crd-request-generator) - React/node.js based web UI that can generate basic CRD requests and display the returned CDS Hooks cards.
+* [test-ehr](https://github.com/mcode/test-ehr) - A HAPI FHIR server with additional support for the data needed to be forwarded to the dtr SMART on FHIR application.
+* [smart-app](https://github.com/mcode/dtr) - A SMART of FHIR application for Documentation Templates and Rules (DTR).
 
 ## System Architecture
 The subprojects in this repository are capable of simulating the entire set of interactions required for CRD. Their interactions can be seen in the following diagram:
@@ -43,7 +43,7 @@ On the left side of the diagram, we have two components that simulate functional
 `test-ehr` provides a basic FHIR server that is intended to satisfy any requests from the CDS Service that have not been populated via prefetch. If the system generating the request completely populates the prefetch, or the CDS Service processing the request is simplistic, this component is not necessary. 
 
 ### Healthcare Payer Components
-`server` is an implementation of a CDS Service. It handles CDS Hooks requests and returns results. The service performs some basic parsing of the request to extract basic demographic information and the code of the requested item. Based on that information, the service will consult a repository and return information from the repository in CDS Hook cards. The  documentation requirements rules can be found here [CDS-Repository](https://github.com/HL7-DaVinci/CDS-Library).
+`server` is an implementation of a CDS Service. It handles CDS Hooks requests and returns results. The service performs some basic parsing of the request to extract basic demographic information and the code of the requested item. Based on that information, the service will consult a repository and return information from the repository in CDS Hook cards. The  documentation requirements rules can be found here [CDS-Repository](https://github.com/mcode/CDS-Library).
 
 ## Prerequisites
 * Java - JDK 8 - [Oracle JDK Downloads](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -53,13 +53,15 @@ On the left side of the diagram, we have two components that simulate functional
 
 ## Building, testing and running
 1. Clone the repo
-  * `git clone https://github.com/HL7-DaVinci/CRD.git`
-1. Test the code (optional)
-  * `gradle clean check`
-1. Build the code
-  * `gradle build`
+	* `git clone https://github.com/mcode/CRD.git`
+2. Test the code (optional)
+	* `gradle clean check`
+3. Build the code
+	* `gradle build`
+4. Run the code
+	* `gradle :server:bootRun`
 
-Visit the [server README](server/README.md) to see how to run the server or the [crd-request-generator README](https://github.com/HL7-DaVinci/crd-request-generator/) for information on running these subprojects.
+Visit the [server README](server/README.md) to see how to run the server or the [crd-request-generator README](https://github.com/mcode/crd-request-generator/) for information on running these subprojects.
 
 ## Setting up a KeyCloak instance
 
@@ -106,10 +108,5 @@ The core CRD team develops with [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 ### Running the server from the IntelliJ IDEA UI
 1. Select the gradle tool window
 1. Choose CRD --> :server --> Tasks --> application --> bootRun
-
-## Questions and Contributions
-Questions about the project can be asked in the [Da Vinci CRD stream on the FHIR Zulip Chat](https://chat.fhir.org/#narrow/stream/180803-Da-Vinci.20CRD).
-
-This project welcomes Pull Requests. Any issues identified with the RI should be submitted via the [GitHub issue tracker](https://github.com/HL7-DaVinci/CRD/issues).
 
  
