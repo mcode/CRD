@@ -53,7 +53,7 @@ class DatabaseInit {
             turalio.setId("turalio");
             turalio.setCodeSystem("http://www.nlm.nih.gov/research/umls/rxnorm");
             turalio.setCode("2183126");
-            repository.save(turalio);;
+            repository.save(turalio);
 
             Drug tirf = new Drug();
             tirf.setId("TIRF");
@@ -72,7 +72,7 @@ class DatabaseInit {
 
             
             // patient enrollment form requirement
-            String TuralioPatientQuestionnaire = readFile("CDS-Library/CRD-DTR/DrugHasREMS/R4/resources/Questionnaire-R4-DrugHasREMS.json", Charset.defaultCharset());
+            String TuralioPatientQuestionnaire = readFile("CDS-Library/CRD-DTR/Turalio/R4/resources/Questionnaire-R4-Turalio.json", Charset.defaultCharset());
             Requirement TuralioPatientEnrollmentRequirement = new Requirement();
             RemsFhir TuralioPatientEnrollmentResource = new RemsFhir();
             TuralioPatientEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -89,7 +89,7 @@ class DatabaseInit {
             requirementRepository.save(TuralioPatientEnrollmentRequirement);
 
              // prescriber enrollment form requirement
-             String TuralioPrescriberQuestionnaire = readFile("CDS-Library/CRD-DTR/DrugHasREMS/R4/resources/Questionnaire-R4-PrescriberEnrollment.json", Charset.defaultCharset());
+             String TuralioPrescriberQuestionnaire = readFile("CDS-Library/CRD-DTR/Turalio/R4/resources/Questionnaire-R4-PrescriberEnrollment.json", Charset.defaultCharset());
              Requirement TuralioPrescriberEnrollmentRequirement = new Requirement();
              RemsFhir TuralioPrescriberEnrollmentResource = new RemsFhir();
              TuralioPrescriberEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -106,7 +106,7 @@ class DatabaseInit {
              requirementRepository.save(TuralioPrescriberEnrollmentRequirement);
 
             // prescriber knowledge assessment / certification sub-requirement
-            String TuralioPrescriberKnowledgeQuestionnaire = readFile("CDS-Library/CRD-DTR/DrugHasREMS/R4/resources/Questionnaire-R4-Prescriber-Knowledge-Assessment.json", Charset.defaultCharset());
+            String TuralioPrescriberKnowledgeQuestionnaire = readFile("CDS-Library/CRD-DTR/Turalio/R4/resources/Questionnaire-R4-Prescriber-Knowledge-Assessment.json", Charset.defaultCharset());
             Requirement TuralioPrescriberCertificationRequirement = new Requirement();
             RemsFhir TuralioPrescriberKnowledgeResource = new RemsFhir();
             TuralioPrescriberKnowledgeResource.setResourceType(ResourceType.Questionnaire.toString());
@@ -125,7 +125,7 @@ class DatabaseInit {
 
              // pharmacist enrollment form requirement
              // change form below to pharmacist enrollment once form is translated
-             String TuralioPharmacistQuestionnaire = readFile("CDS-Library/CRD-DTR/DrugHasREMS/R4/resources/Questionnaire-R4-PrescriberEnrollment.json", Charset.defaultCharset());
+             String TuralioPharmacistQuestionnaire = readFile("CDS-Library/CRD-DTR/Turalio/R4/resources/Questionnaire-R4-PrescriberEnrollment.json", Charset.defaultCharset());
              Requirement TuralioPharmacistEnrollmentRequirement = new Requirement();
              RemsFhir TuralioPharmacistEnrollmentResource = new RemsFhir();
              TuralioPharmacistEnrollmentResource.setResourceType(ResourceType.Questionnaire.toString());
