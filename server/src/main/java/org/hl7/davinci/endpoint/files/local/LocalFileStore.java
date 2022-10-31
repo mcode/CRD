@@ -51,16 +51,6 @@ public class LocalFileStore extends CommonFileStore {
       System.exit(1);
     }
 
-    // Load the examples folder
-    String examplesPath = config.getLocalDb().getExamplesPath();
-    logger.info("LocalFileStore::reload(): (examples) " + examplesPath);
-
-    try {
-      reloadFromFolder(examplesPath);
-    } catch (IOException e) {
-      logger.error("FATAL ERROR: Failed to reload examples from folder: " + e.getMessage());
-      System.exit(1);
-    }
 
     long endTime = System.nanoTime();
     long timeElapsed = endTime - startTime;

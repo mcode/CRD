@@ -109,15 +109,7 @@ public class GitHubFileStore extends CommonFileStore {
         System.exit(1);
       }
 
-      // load the examples folder
-      String examplesPath = config.getGitHubConfig().getExamplesPath();
-      path = location.getPath() + "/" + examplesPath;
-      try {
-        reloadFromFolder(path + "/");
-      } catch (IOException e) {
-        logger.error("FATAL ERROR: Failed to reload from examples folder: " + e.getMessage());
-        System.exit(1);
-      }
+
 
       // clean up the zip file
       try {
