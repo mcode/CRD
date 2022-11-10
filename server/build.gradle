@@ -131,7 +131,7 @@ task embedCdsLibrary() {
         if (project.hasProperty('branch')) {
             cloneCdsLibraryScript(branch)
         } else {
-            cloneCdsLibraryScript('master')
+            cloneCdsLibraryScript('main')
         }
     }
 }
